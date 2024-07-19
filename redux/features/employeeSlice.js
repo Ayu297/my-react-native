@@ -23,12 +23,51 @@ import axiosInstance from "../../api/axiosInstance";
       }
     }
   );
-  
+
+
   export const createEmployee = createAsyncThunk(
     "employee/createEmployee",
     async (employee, { rejectedWithValue }) => {
       try {
-        const response = await axiosInstance.post("/employee", employee);
+
+        const headers =  { 
+          "Content-Type": "multipart/form-data", 
+          Accept: "*/*", 
+          "Accept-Encoding": "gzip, deflate, br", 
+          Connection: "keep-alive", 
+        }
+        const formData = new FormData(); 
+        formData.append("employee", JSON.stringify(employee)); 
+        formData.append("image", null); 
+        const response = await axiosInstance.post("/employee", formData, {
+          headers: headers
+        });
+      
+        return response.data;
+      } catch (e) {
+        return rejectedWithValue(error.response.data);
+      }
+    }
+  );
+
+  export const updateEmployee = createAsyncThunk(
+    "employee/updateEmployee",
+    async (employee, { rejectedWithValue }) => {
+      try {
+
+        const headers =  { 
+          "Content-Type": "multipart/form-data", 
+          Accept: "*/*", 
+          "Accept-Encoding": "gzip, deflate, br", 
+          Connection: "keep-alive", 
+        }
+        const formData = new FormData(); 
+        formData.append("employee", JSON.stringify(employee)); 
+        formData.append("image", null); 
+        const response = await axiosInstance.put("/employee", formData, {
+          headers: headers
+        });
+      
         return response.data;
       } catch (e) {
         return rejectedWithValue(error.response.data);
@@ -36,17 +75,17 @@ import axiosInstance from "../../api/axiosInstance";
     }
   );
   
-  export const updateEmployee = createAsyncThunk(
-    "employee/updateEmployee",
-    async (employee, { rejectedWithValue }) => {
-      try {
-        const response = await axiosInstance.put("/employee", employee);
-        return response.data;
-      } catch (e) {
-        return rejectedWithValue(error.response.data);
-      }
-    }
-  );
+  // export const updateEmployee = createAsyncThunk(
+  //   "employee/updateEmployee",
+  //   async (employee, { rejectedWithValue }) => {
+  //     try {
+  //       const response = await axiosInstance.put("/employee", employee);
+  //       return response.data;
+  //     } catch (e) {
+  //       return rejectedWithValue(error.response.data);
+  //     }
+  //   }
+  // );
   
   export const deleteEmployee = createAsyncThunk(
     "employee/deleteEmployee",
@@ -90,7 +129,7 @@ import axiosInstance from "../../api/axiosInstance";
         .addMatcher(
           (action) => action.type.endsWith("/rejected"),
           (state, action) => {
-            state.error = action.payload;
+            state.error = action.payload
             state.status = "failed";
           }
         );

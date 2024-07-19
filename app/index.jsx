@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Button from '../app/components/Button';
 
 const index = () => {
@@ -8,7 +8,7 @@ const index = () => {
   return (
     <View style={{flex: 1, marginTop: 150}}>
       
-      <Text>index</Text>
+      {/* <Text>index</Text>
       <Button
         title='Tabs'
         onPress={() => router.push('(tabs)')}
@@ -16,17 +16,15 @@ const index = () => {
       <Button
         title='Login'
         onPress={() => router.push('/login')}
-      />
+      /> */}
       <View style={{flex: 1, marginTop: 150}}>
-      <Text>index</Text>
       <Button
         title='Employee List'
         onPress={() => router.push('/EmployeeList')}
       />
       </View>
 
-      <View style={{flex: 1, marginTop: 150}}>
-      <Text>index</Text>
+      <View style={{flex: 4, marginTop: 20}}>
       <Button
         title='Employee Form'
         onPress={() => router.push('/EmployeeForm')}
